@@ -10,14 +10,14 @@ highlighter: rouge
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : Soot Spirits
+title : Pinkaru's Blog
 tagline: Code, Science, Philosophy, Humor
 author :
-  name : Abhishek Nagekar
-  email : abhishek@nagekar.com
-  github : abhn
-  twitter : abhisheknagekar
-  feedburner : AbhishekN
+  name : Pinkaru
+  email : pinkaru89@gmail.com
+  github : pinkaru
+  twitter : pinkaru
+  feedburner : pinkaru
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt
@@ -27,7 +27,9 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : https://www.nagekar.com
+production_url : https://Pinkaru.github.io
+url : https://Pinkaru.github.io
+
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -82,9 +84,9 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
+    provider : pinkaru
     disqus :
-      short_name : nagekar
+      short_name : pinkaru
 
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
