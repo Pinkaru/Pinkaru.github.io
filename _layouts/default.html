@@ -56,7 +56,9 @@
 
       <div class="nav-right nav-menu" id='nav-menu'>
         <a href="{{ "/archive" | relative_url }}" class="nav-item">Archive</a>
+        <a href="{{ "/categories" | relative_url }}" class="nav-item">Categories</a>
         <a href="{{ "/tags" | relative_url }}" class="nav-item">Tags</a>
+        <a href="{{ "/portfolio" | relative_url }}" class="nav-item">Portfolio</a>
       </div>
 
       <span class="nav-toggle" id="nav-toggle">
@@ -102,12 +104,19 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title nice-title">
-                  Sponsored
+                  Categories
                 </p>
               </header>
               <div class="card-content">
                 <div class="content nice-text">
-                  <img src="{{ site.baseurl }}/assets/images/Dust_Bunny.jpg"/>
+                  <ul>
+                  {% for category in site.categories limit:5 %}
+                  <li><a href="{{ "/categories" | relative_url }}#{{ category[0] }}-ref">
+                    {{ category[0] }} ({{ category[1].size }})
+                  </a></li>
+                  {% endfor %}
+                  </ul>
+                  <a href="{{ "/categories" | relative_url }}">View all categories →</a>
                 </div>
               </div>
             </div>
@@ -118,31 +127,19 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title nice-title">
-                  Recommended Websites
+                  Popular Tags
                 </p>
               </header>
               <div class="card-content">
                 <div class="content nice-text">
                   <ul>
+                  {% for tag in site.tags limit:8 %}
                     <li>
-                      <a href="https://xkcd.com">xkcd</a>
+                      <a href="{{ "/tags" | relative_url }}#{{ tag[0] }}-ref">{{ tag[0] }} ({{ tag[1].size }})</a>
                     </li>
-                    <li>
-                      <a href="http://commitstrip.com">Commit Strip</a>
-                    </li>
-                    <li>
-                      <a href="http://www.smbc-comics.com">SMBC Comics</a>
-                    </li>
-                    <li>
-                      <a href="https://blog.codinghorror.com">Coding Horror</a>
-                    </li>
-                    <li>
-                      <a href="http://waitbutwhy.com">Wait Buy Why</a>
-                    </li>
-                    <li>
-                      <a href="https://simplysoch.wordpress.com/">Simply Soch</a>
-                    </li>
+                  {% endfor %}
                   </ul>
+                  <a href="{{ "/tags" | relative_url }}">View all tags →</a>
                 </div>
               </div>
             </div>

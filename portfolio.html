@@ -1,0 +1,51 @@
+---
+layout: page
+title: Portfolio
+header: My Projects
+group: navigation
+---
+
+<div class="box">
+  <h2 class="nice-title">Projects</h2>
+  <p class="nice-text">Here are some of my technical projects and work.</p>
+  
+  <!-- Portfolio items will be added here -->
+  <!-- You can add projects as posts with category: Portfolio -->
+  
+  <ul class="posts-list">
+    {% for post in site.categories['Portfolio'] %}
+      <li class="post">
+        <h3>
+          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        </h3>
+        <small>{{ post.date | date_to_string }}</small>
+        <p class="nice-text">{{ post.content | strip_html | truncatewords: 30 }}</p>
+        {% if post.tags %}
+        <div class="tags">
+          {% for tag in post.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  
+  {% if site.categories['Portfolio'].size == 0 %}
+    <p class="nice-text">No portfolio items yet. Add posts with <code>categories: Portfolio</code> to display them here.</p>
+  {% endif %}
+</div>
+
+<style>
+.tags {
+  margin-top: 10px;
+}
+.tag {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  margin-right: 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+</style>
