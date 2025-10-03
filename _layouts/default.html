@@ -98,49 +98,23 @@
           </div>
 
           <div class="tile is-child widget">
-
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title nice-title">
-                  Sponsored
-                </p>
-              </header>
-              <div class="card-content">
-                <div class="content nice-text">
-                  <img src="{{ site.baseurl }}/assets/images/Dust_Bunny.jpg"/>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="tile is-child widget">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title nice-title">
-                  Recommended Websites
+                  Links
                 </p>
               </header>
               <div class="card-content">
                 <div class="content nice-text">
                   <ul>
                     <li>
-                      <a href="https://xkcd.com">xkcd</a>
+                      <a href="https://github.com/{{ site.author.github }}">GitHub</a>
                     </li>
                     <li>
-                      <a href="http://commitstrip.com">Commit Strip</a>
+                      <a href="{{ "/archive" | relative_url }}">All Posts</a>
                     </li>
                     <li>
-                      <a href="http://www.smbc-comics.com">SMBC Comics</a>
-                    </li>
-                    <li>
-                      <a href="https://blog.codinghorror.com">Coding Horror</a>
-                    </li>
-                    <li>
-                      <a href="http://waitbutwhy.com">Wait Buy Why</a>
-                    </li>
-                    <li>
-                      <a href="https://simplysoch.wordpress.com/">Simply Soch</a>
+                      <a href="{{ "/tags" | relative_url }}">Tags</a>
                     </li>
                   </ul>
                 </div>
@@ -167,13 +141,10 @@
         Made with <i class="fa fa-heart"></i> and <a href="https://github.com/jgthms/bulma">Bulma</a>, <a href="https://jekyllrb.com/">Jekyll</a>. Hosted on <a href="https://github.com/">Github</a>
       </p>
       <p>
-        <a class="icon" href="https://github.com/abhn">
+        <a class="icon" href="https://github.com/{{ site.author.github }}">
           <i class="fa fa-github" title="Github"></i>
         </a>
-        <a class="icon" href="https://in.linkedin.com/in/AbhishekNagekar">
-          <i class="fa fa-linkedin" title="Linkedin"></i>
-        </a>
-        <a class="icon" href="mailto:abhishek@nagekar.com">
+        <a class="icon" href="mailto:{{ site.author.email }}">
           <i class="fa fa-envelope" title="Email"></i>
         </a>
       </p>

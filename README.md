@@ -1,57 +1,29 @@
-# Soot Spirits Jekyll Theme
+# Pinkaru's Blog
 
-Soot Spirits is a responsive mobile ready lightweight two column Jekyll theme made with Bulma CSS. It is a great template for simple personal blogs with focus on typography.
+Personal blog built with Jekyll and the Soot Spirits theme, hosted on GitHub Pages.
 
-![mobile](tmp/mobile.png)
+## About
 
-The text is made beautiful with combination of [League Gothic](https://www.fontsquirrel.com/fonts/league-gothic), [Roboto](https://fonts.google.com/specimen/Roboto) and [Open Sans](https://fonts.google.com/specimen/Open+Sans). Now who doesn't love them.
+This is a personal blog featuring posts about code, science, philosophy, and various technical topics.
 
-![text](tmp/langslide.gif)
-
-### Demo
-[sootspirits.github.io](https://sootspirits.github.io)
-
-### Some Good Features
-
-- Fully mobile ready
-- Beautiful typography
-- Two column layout suitable for a wide range of blogging habits
-- Fully customisable theme including the 'hello' text, quotes, nav items and sidebar widgets
-
-### Screenshots
-##### Deskop browser (full width)
-![fullwidth](tmp/fullwidth.png)
-
-##### Tablet browser (iPad)
-![tab](tmp/ipad.png)
-
-##### Mobile browser (320px and greater)
-![mobile](tmp/mobile.png)
-
-##### Hamburger menu toggle
-![hamburger](tmp/hamburger.gif)
-
-##### Basic navigation and footer
-![navi](tmp/navi.gif)
-
-### Theme Usage
-
-- [Get started](https://jekyllrb.com/docs/installation/) with having the necessary tools set up
-- Download the zip of this project or simple clone it
-- Delete the ```tmp/``` directory and any sample ```_posts```
-- Customize the variables in ```_config.yml``` file such that it reflects your information. Similarly, change the disqus username (or remove it altogether).
-- Replace footer links in the ```_layouts/default.html``` file with yours.
-- Replace the ```site:example.com``` in ```assets/js/custom.js``` with your site's address.
-
-### Credits
-- [Codepen hi-im-si](http://codepen.io/hi-im-si/pen/DHoup) for the header 'hello' typewriter text
-- [Bulma CSS](bulma.io/)
+Built with:
 - [Jekyll](https://jekyllrb.com)
-- [Github](https://github.com)
+- [Bulma CSS](https://bulma.io/)
+- [Soot Spirits Theme](https://github.com/abhn/Soot-Spirits)
 
-### Licence
+## Local Development
+
+```bash
+bundle install
+bundle exec jekyll serve
+```
+
+Visit `http://localhost:4000` to view the site locally.
+
+## License
+
 MIT
 
+---
 
-### What's up with the name?
-I was watching [My Neighbour Totoro](https://en.wikipedia.org/wiki/Susuwatari) while developing :-)
+*Based on the Soot Spirits Jekyll Theme*
