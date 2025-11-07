@@ -1,0 +1,86 @@
+---
+import CactusLayout from './CactusLayout.astro';
+import { formatDate } from '../utils/date';
+
+interface Props {
+  title: string;
+  date: Date;
+  tags?: string[];
+  description?: string;
+}
+
+const { title, date, tags = [], description } = Astro.props;
+---
+
+<CactusLayout title={title} description={description}>
+  <article class="prose prose-lg dark:prose-invert max-w-none">
+    <!-- Header -->
+    <header class="mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
+      <h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+        {title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <time datetime={date.toISOString()}>
+          {formatDate(date)}
+        </time>
+
+        {tags.length > 0 && (
+          <>
+            <span class="text-gray-300 dark:text-gray-700">•</span>
+            <div class="flex flex-wrap gap-2">
+              {tags.map(tag => (
+                <a
+                  href={`/tags/${tag}`}
+                  class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs hover:bg-accent hover:text-white dark:hover:bg-blue-500 transition-colors no-underline"
+                >
+                  #{tag}
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose-content">
+      <slot />
+    </div>
+  </article>
+
+  <!-- Back to posts link -->
+  <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <a href="/blog" class="inline-flex items-center gap-2 text-accent dark:text-blue-400 hover:gap-3 transition-all no-underline">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Back to all posts
+    </a>
+  </div>
+
+  <!-- Comments section -->
+  <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <h3 class="text-2xl font-bold mb-6">Comments</h3>
+    <div id="disqus_thread"></div>
+  </div>
+
+  <script is:inline>
+    // Disqus configuration
+    window.disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = window.location.pathname;
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://pinkaru.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', String(new Date().getTime()));
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</CactusLayout>

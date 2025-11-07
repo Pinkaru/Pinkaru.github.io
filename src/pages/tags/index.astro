@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import CactusLayout from '../../layouts/CactusLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
@@ -10,19 +10,19 @@ const tagCounts = allTags.map(tag => ({
 }));
 ---
 
-<BaseLayout title="Tags">
-  <div class="card">
-    <h1 class="text-4xl font-bold text-primary mb-8">All Tags</h1>
+<CactusLayout title="Tags">
+  <section>
+    <h1 class="text-4xl font-bold mb-12">All Tags</h1>
 
     <div class="flex flex-wrap gap-3">
       {tagCounts.map(({ tag, count }) => (
         <a
           href={`/tags/${tag}`}
-          class="bg-gray-200 hover:bg-secondary hover:text-white px-4 py-2 rounded-lg transition-colors font-medium"
+          class="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-accent hover:text-white dark:hover:bg-blue-500 rounded-lg transition-colors font-medium no-underline"
         >
-          #{tag} <span class="text-sm">({count})</span>
+          #{tag} <span class="text-sm opacity-70">({count})</span>
         </a>
       ))}
     </div>
-  </div>
-</BaseLayout>
+  </section>
+</CactusLayout>

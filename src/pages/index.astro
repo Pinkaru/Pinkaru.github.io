@@ -1,46 +1,80 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import CactusLayout from '../layouts/CactusLayout.astro';
 import { getCollection } from 'astro:content';
 import { sortByDate, formatDate } from '../utils/date';
 
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort(sortByDate);
-const postsPerPage = 5;
-const displayPosts = sortedPosts.slice(0, postsPerPage);
 ---
 
-<BaseLayout>
-  <div class="space-y-8">
-    <h2 class="text-3xl font-bold text-primary">Well, Hello There!</h2>
+<CactusLayout>
+  <!-- Hero Section -->
+  <section class="mb-16 text-center">
+    <h1 class="text-5xl font-bold mb-4">
+      <span class="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+        Pinkaru's Blog
+      </span>
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-400 mb-6">
+      Code, Science, Philosophy, Humor
+    </p>
+    <div id="quote" class="text-sm text-gray-500 dark:text-gray-500 italic max-w-2xl mx-auto">
+      <!-- Quote will be loaded here -->
+    </div>
+  </section>
 
-    {displayPosts.map(post => (
-      <article class="card">
-        <div class="flex items-baseline justify-between mb-2">
-          <time class="text-sm text-gray-600">{formatDate(post.data.date)}</time>
-        </div>
-        <h3 class="text-2xl font-bold mb-3">
-          <a href={`/blog/${post.slug}`} class="text-primary hover:text-secondary transition-colors">
-            {post.data.title}
+  <!-- Latest Posts -->
+  <section>
+    <h2 class="text-3xl font-bold mb-8">Latest Posts</h2>
+
+    <div class="space-y-8">
+      {sortedPosts.map(post => (
+        <article class="group">
+          <a href={`/blog/${post.slug}`} class="block no-underline">
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-accent dark:group-hover:text-blue-400 transition-colors">
+                {post.data.title}
+              </h3>
+              <time class="text-sm text-gray-500 dark:text-gray-500 shrink-0">
+                {formatDate(post.data.date)}
+              </time>
+            </div>
+
+            {post.data.description && (
+              <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                {post.data.description}
+              </p>
+            )}
+
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.map((tag: string) => (
+                  <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </a>
-        </h3>
-        <p class="text-gray-700 mb-4">
-          {post.data.description || post.body.substring(0, 150) + '...'}
-        </p>
-        <a
-          href={`/blog/${post.slug}`}
-          class="text-secondary hover:underline font-medium"
-        >
-          Read more! →
-        </a>
-      </article>
-    ))}
+        </article>
+      ))}
+    </div>
+  </section>
 
-    {sortedPosts.length > postsPerPage && (
-      <div class="text-center">
-        <a href="/blog" class="btn btn-primary">
-          View All Posts
-        </a>
-      </div>
-    )}
-  </div>
-</BaseLayout>
+  <script>
+    // Load random quote
+    fetch('/quotes.txt')
+      .then(response => response.text())
+      .then(data => {
+        const quotes = data.split('\n').filter(q => q.trim());
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        const quoteElement = document.getElementById('quote');
+        if (quoteElement) {
+          quoteElement.textContent = `"${randomQuote}"`;
+        }
+      })
+      .catch(() => {
+        console.log('Failed to load quotes');
+      });
+  </script>
+</CactusLayout>
