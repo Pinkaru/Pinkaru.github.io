@@ -1,0 +1,64 @@
+---
+import CactusLayout from '../../layouts/CactusLayout.astro';
+import { getCollection } from 'astro:content';
+import { sortByDate, formatDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const allTags = [...new Set(allPosts.flatMap(post => post.data.tags || []))];
+
+  return allTags.map(tag => ({
+    params: { tag },
+    props: {
+      posts: allPosts.filter(post => post.data.tags?.includes(tag)).sort(sortByDate)
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<CactusLayout title={`Tag: ${tag}`}>
+  <section>
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-2">
+        Posts tagged with <span class="text-accent dark:text-blue-400">#{tag}</span>
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+    </div>
+
+    <div class="space-y-8">
+      {posts.map(post => (
+        <article class="group">
+          <a href={`/blog/${post.slug}`} class="block no-underline">
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-accent dark:group-hover:text-blue-400 transition-colors">
+                {post.data.title}
+              </h2>
+              <time class="text-sm text-gray-500 dark:text-gray-500 shrink-0">
+                {formatDate(post.data.date)}
+              </time>
+            </div>
+
+            {post.data.description && (
+              <p class="text-gray-600 dark:text-gray-400 mb-3">
+                {post.data.description}
+              </p>
+            )}
+
+            {post.data.tags && post.data.tags.length > 1 && (
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.map((t: string) => (
+                  <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
+                    #{t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</CactusLayout>

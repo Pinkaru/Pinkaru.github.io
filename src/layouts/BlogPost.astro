@@ -1,0 +1,126 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatDate } from '../utils/date';
+
+interface Props {
+  title: string;
+  date: Date;
+  tags?: string[];
+  description?: string;
+}
+
+const { title, date, tags = [], description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="card">
+    <header class="mb-6 border-b pb-4">
+      <h1 class="text-4xl font-bold mb-2 text-primary">{title}</h1>
+      <div class="flex items-center text-gray-600 text-sm">
+        <time datetime={date.toISOString()}>
+          {formatDate(date)}
+        </time>
+        {tags.length > 0 && (
+          <span class="mx-2">•</span>
+        )}
+        {tags.length > 0 && (
+          <div class="flex gap-2">
+            {tags.map(tag => (
+              <a
+                href={`/tags/${tag}`}
+                class="bg-gray-200 hover:bg-secondary hover:text-white px-2 py-1 rounded text-xs transition-colors"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <div class="prose prose-lg max-w-none">
+      <slot />
+    </div>
+  </article>
+
+  <!-- Navigation between posts -->
+  <div class="flex justify-between mt-8">
+    <div id="prev-post"></div>
+    <div id="next-post"></div>
+  </div>
+
+  <!-- Comments section (Disqus) -->
+  <div class="card mt-8">
+    <h3 class="text-2xl font-bold mb-4">Comments</h3>
+    <div id="disqus_thread"></div>
+  </div>
+
+  <script is:inline>
+    // Disqus configuration
+    window.disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = window.location.pathname;
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://pinkaru.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', String(new Date().getTime()));
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</BaseLayout>
+
+<style>
+  .prose {
+    @apply text-gray-800;
+  }
+
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4) {
+    @apply font-bold text-primary mt-6 mb-4;
+  }
+
+  .prose :global(h2) {
+    @apply text-2xl;
+  }
+
+  .prose :global(h3) {
+    @apply text-xl;
+  }
+
+  .prose :global(a) {
+    @apply text-secondary hover:underline;
+  }
+
+  .prose :global(code) {
+    @apply bg-gray-100 px-1 py-0.5 rounded text-sm;
+  }
+
+  .prose :global(pre) {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+  }
+
+  .prose :global(pre code) {
+    @apply bg-transparent p-0;
+  }
+
+  .prose :global(blockquote) {
+    @apply border-l-4 border-secondary pl-4 italic text-gray-700;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    @apply ml-6 my-4;
+  }
+
+  .prose :global(li) {
+    @apply mb-2;
+  }
+</style>
