@@ -83,4 +83,46 @@ const { title, date, tags = [], description } = Astro.props;
     Please enable JavaScript to view the
     <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
   </noscript>
+
+  <!-- Mermaid diagrams -->
+  <script type="module">
+    import mermaid from 'mermaid';
+
+    // Initialize mermaid with theme support
+    const initMermaid = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: isDark ? 'dark' : 'default',
+        securityLevel: 'loose',
+        fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif',
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis',
+        },
+      });
+      mermaid.run();
+    };
+
+    // Initialize on page load
+    initMermaid();
+
+    // Re-initialize when theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          // Remove old SVGs
+          document.querySelectorAll('.mermaid svg').forEach(svg => svg.remove());
+          // Re-initialize
+          initMermaid();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  </script>
 </CactusLayout>
