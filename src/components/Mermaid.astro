@@ -1,0 +1,78 @@
+---
+interface Props {
+  chart: string;
+}
+
+const { chart } = Astro.props;
+const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="mermaid-container my-8">
+  <div id={id} class="mermaid bg-white dark:bg-gray-800 p-6 rounded-lg overflow-x-auto">
+    {chart}
+  </div>
+</div>
+
+<script>
+  import mermaid from 'mermaid';
+
+  // Initialize mermaid
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
+    securityLevel: 'loose',
+    fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+  });
+
+  // Re-render when theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'class') {
+        const isDark = document.documentElement.classList.contains('dark');
+        mermaid.initialize({
+          theme: isDark ? 'dark' : 'default',
+        });
+        mermaid.contentLoaded();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+
+  // Initial render
+  mermaid.contentLoaded();
+</script>
+
+<style>
+  .mermaid-container {
+    @apply flex justify-center;
+  }
+
+  .mermaid {
+    @apply border border-gray-200 dark:border-gray-700;
+  }
+
+  /* Mermaid diagram styling */
+  :global(.mermaid svg) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :global(.mermaid .node rect),
+  :global(.mermaid .node circle),
+  :global(.mermaid .node polygon) {
+    @apply fill-blue-100 dark:fill-blue-900;
+    @apply stroke-blue-600 dark:stroke-blue-400;
+  }
+
+  :global(.mermaid .edgeLabel) {
+    @apply bg-white dark:bg-gray-800;
+  }
+
+  :global(.mermaid .label) {
+    @apply fill-gray-900 dark:fill-gray-100;
+  }
+</style>

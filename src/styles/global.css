@@ -80,4 +80,17 @@
   .prose th {
     @apply bg-gray-100 dark:bg-gray-800 font-semibold;
   }
+
+  /* Mermaid Diagrams */
+  .prose pre.mermaid {
+    @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 my-8;
+  }
+
+  .prose .mermaid {
+    @apply flex justify-center items-center my-8;
+  }
+
+  .prose .mermaid svg {
+    @apply max-w-full h-auto;
+  }
 }
