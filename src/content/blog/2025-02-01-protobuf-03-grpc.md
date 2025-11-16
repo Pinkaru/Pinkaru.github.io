@@ -1,7 +1,7 @@
 ---
 title: "gRPC와 Protobuf - 고성능 RPC"
 date: 2025-02-01
-tags: [gRPC, Protocol Buffers, RPC, HTTP/2, Streaming]
+tags: [gRPC, Protocol Buffers, RPC, HTTP2, Streaming]
 description: "gRPC와 Protocol Buffers를 결합하여 고성능 원격 프로시저 호출 시스템을 구축하고, 스트리밍을 구현합니다."
 ---
 
