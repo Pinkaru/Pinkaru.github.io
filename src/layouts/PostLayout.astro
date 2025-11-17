@@ -88,11 +88,25 @@ const { title, date, tags = [], description } = Astro.props;
   <script type="module">
     import mermaid from 'mermaid';
 
+    // Convert markdown code blocks to mermaid divs
+    const prepareMermaidBlocks = () => {
+      document.querySelectorAll('pre code.language-mermaid').forEach((block) => {
+        const pre = block.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = block.textContent;
+        pre.replaceWith(div);
+      });
+    };
+
     // Initialize mermaid with theme support
     const initMermaid = () => {
+      // First, convert code blocks to mermaid divs
+      prepareMermaidBlocks();
+
       const isDark = document.documentElement.classList.contains('dark');
       mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: isDark ? 'dark' : 'default',
         securityLevel: 'loose',
         fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif',
